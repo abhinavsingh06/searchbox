@@ -29,4 +29,5 @@ input:focus {
   height: 20rem;
   background-color: whitesmoke;
   overflow: hidden;
+  overflow-y: auto;
 }
