@@ -1,28 +1,43 @@
 .dataCard {
-  border-bottom: 0.1rem black;
   text-align: left;
-  padding: 1.5rem 1rem ;
+  padding: 1rem;
+  border-bottom: 0.1rem solid lightgray;
 }
 
-.dataCard span {
+.dataCard h1 {
   font-size: 1.1rem;
-  color: black;
+  color: gray;
   margin: 0;
+  font-weight: 600;
 }
 
 .dataCard h3 {
   font-size: 1rem;
   color: gray;
-  margin: 0;
+  margin: 0.2rem 0rem;
+  font-style: italic;
+  font-weight: 500;
 }
 
 .dataCard p {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: gray;
-  margin: 0;
+  margin: 0.5rem 0rem;
+  font-weight: 400;
 }
 
 .dataCard:hover {
   cursor: pointer;
   background-color: beige;
+}
+
+.searchNotification {
+  font-style: normal;
+  color: gray;
+  font-weight: 400;
+  font-size: 1rem;
+  border-bottom: 0.1rem solid lightgrey;
+  border-top: 0.1rem solid lightgray;
+  margin: 0.5rem 0;
+  padding: 0.3rem;
 }

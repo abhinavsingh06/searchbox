@@ -8,13 +8,13 @@
 }
 
 .searchInput input {
-  background-color: beige;
-  border-radius: 0.3rem;
+  background-color: whitesmoke;
   border: 0;
   height: 3rem;
   width: 25rem;
   font-size: 1.4rem;
   padding: 0.5rem;
+  border-bottom: 0.1rem solid gray;
 }
 
 input:focus {
@@ -22,11 +22,11 @@ input:focus {
 }
 
 .searchResult {
+  box-shadow: 0.3rem 0.5rem 0.5rem black;
   align-items: center;
   margin: 0 auto;
-  margin-top: 1rem;
-  width: 25rem;
-  height: 20rem;
+  width: 26rem;
+  max-height: 20rem;
   background-color: whitesmoke;
   overflow: hidden;
   overflow-y: auto;
