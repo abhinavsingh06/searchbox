@@ -1,11 +1,85 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import '../stylesheets/searchbar.css';
 import Card from './Card';
+
+const useKeyPress = function(targetKey) {
+  const [keyPressed, setKeyPressed] = useState(false);
+
+  React.useEffect(() => {
+    const downHandler = ({ key }) => {
+      if (key === targetKey) {
+        setKeyPressed(true);
+      }
+    }
+  
+    const upHandler = ({ key }) => {
+      if (key === targetKey) {
+        setKeyPressed(false);
+      }
+    };
+
+    window.addEventListener("keydown", downHandler);
+    window.addEventListener("keyup", upHandler);
+
+    return () => {
+      window.removeEventListener("keydown", downHandler);
+      window.removeEventListener("keyup", upHandler);
+    };
+  }, [targetKey]);
+
+  return keyPressed;
+};
 
 export default function SearchBar({ placeholder, data }) {
   const [searchInput, setSearchInput] = useState('');
   const [filteredResult, setFilteredResult] = useState([]);
   const [searching, setSearching] = useState(false);
+  const [selected, setSelected] = useState(undefined);
+  const downPress = useKeyPress("ArrowDown");
+  const upPress = useKeyPress("ArrowUp");
+  const enterPress = useKeyPress("Enter");
+  const [cursor, setCursor] = useState(0);
+  const [hovered, setHovered] = useState(undefined);
+    
+   const refs = filteredResult.reduce((acc, value) => {
+    acc[value.id] = React.createRef();
+    return acc;
+   }, {});
+
+  const handleClick = id => {
+    return refs[id]?.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
+  
+  useEffect(() => {
+    if (filteredResult?.length && downPress) {
+      setCursor(prevState =>
+        prevState < filteredResult?.length - 1 ? prevState + 1 : prevState
+      );
+      handleClick(selected?.id);
+    }
+  }, [downPress]);
+
+  useEffect(() => {
+    if (filteredResult?.length && upPress) {
+      setCursor(prevState => (prevState > 0 ? prevState - 1 : prevState));
+    }
+    handleClick(selected?.id)
+  }, [upPress]);
+
+  useEffect(() => {
+    if (filteredResult?.length) {
+      setSelected(filteredResult[cursor]);
+    }
+  }, [cursor, enterPress]);
+
+  useEffect(() => {
+    if (filteredResult.length && hovered) {
+      setCursor(filteredResult?.indexOf(hovered));
+    }
+  }, [hovered]);
   
   const handleSearch = (event) => {
     const value = event.target.value;
@@ -37,8 +111,12 @@ export default function SearchBar({ placeholder, data }) {
       {
         filteredResult?.length > 0 ? (
           <div className='searchResult'>
-            {filteredResult.map(({ id, name, address, pincode }, i) => (
-              <Card key={id} id={id} name={name} address={address} pincode={pincode} searchInput={searchInput} filteredResult={filteredResult} />
+            {filteredResult.map((data, i) => (
+              <Card
+                innerRef={refs[data.id]}
+                key={data.id} data={data} searchInput={searchInput}
+                filteredResult={filteredResult} active={i === cursor}
+                setSelected={setSelected} setHovered={setHovered} />
             ))}
           </div>
           ) : (

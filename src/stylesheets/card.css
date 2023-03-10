@@ -1,19 +1,19 @@
 .dataCard {
   text-align: left;
-  padding: 1rem;
+  padding: 0.7rem;
   border-bottom: 0.1rem solid lightgray;
 }
 
 .dataCard h1 {
   font-size: 1.1rem;
-  color: gray;
+  color: black;
   margin: 0;
   font-weight: 600;
 }
 
 .dataCard h3 {
   font-size: 1rem;
-  color: gray;
+  color: black;
   margin: 0.2rem 0rem;
   font-style: italic;
   font-weight: 500;
@@ -26,9 +26,14 @@
   font-weight: 400;
 }
 
-.dataCard:hover {
+/* .dataCard:hover {
   cursor: pointer;
   background-color: beige;
+} */
+
+.active{
+  cursor: pointer;
+    background-color: beige;
 }
 
 .searchNotification {
@@ -39,5 +44,6 @@
   border-bottom: 0.1rem solid lightgrey;
   border-top: 0.1rem solid lightgray;
   margin: 0.5rem 0;
-  padding: 0.3rem;
+  padding: 0.3rem 0rem;
+  margin-bottom: 0.8rem;
 }
